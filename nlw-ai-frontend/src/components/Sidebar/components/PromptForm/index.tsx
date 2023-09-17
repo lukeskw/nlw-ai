@@ -4,22 +4,23 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator";
 import { Wand2 } from "lucide-react";
 import { PromptSelect } from "./prompt-select";
-import { useState } from "react";
 import { Slider } from "@/components/ui/slider";
 
-export function PromptForm(){
+interface PromptFormInterface {
+  onPromptSelect: React.Dispatch<React.SetStateAction<string>>
+  onPromptSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  isLoading: boolean
+  onTemperatureChange: (temperature: number) => void
+  temperature: number
+}
 
-  const [temperature, setTemperature] = useState(0.5)
-
-  function handlePromptSelected (template:string) {
-    console.log(template)
-  }
+export function PromptForm(props: PromptFormInterface){
 
   return (
-    <form className="space-y-6">
+    <form onSubmit={props.onPromptSubmit} className="space-y-5">
     <div className="space-y-2">
       <Label>Prompt</Label>
-      <PromptSelect onPromptSelected={handlePromptSelected} />
+      <PromptSelect onPromptSelected={props.onPromptSelect} />
 
     </div>
 
@@ -43,22 +44,22 @@ export function PromptForm(){
     <div className="space-y-4">
       <div className="flex items-center justify-between">
       <Label>Temperatura</Label>
-      <Label>{temperature}</Label>
+      <Label>{props.temperature}</Label>
 
       </div>
       <Slider
         min={0}
         max={1}
         step={0.1}
-        value={[temperature]}
-        onValueChange={value=> setTemperature(value[0])}
+        value={[props.temperature]}
+        onValueChange={value=> props.onTemperatureChange(value[0])}
       />
       <span className="block text-xs text-muted-foreground italic leading-relaxed">Valores mais altos tendem a deixar o resultado mais criativo, porém possivelmente com mais erros.</span>
     </div>
 
     <Separator />
 
-    <Button type="submit" className="w-full">
+    <Button disabled={props.isLoading} type="submit" className="w-full">
       <Wand2 className="w-4 h-4 mr-2"/>
       Executar
     </Button>

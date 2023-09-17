@@ -1,5 +1,5 @@
 import { Github } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button, buttonVariants  } from "../ui/button";
 import { Separator } from "../ui/separator";
 
 export function Header(){
@@ -14,9 +14,12 @@ export function Header(){
 
         <Separator orientation="vertical" className="h-6" />
 
-        <Button variant="secondary">
-          <Github className="w-4 h-4 mr-2"/>
-          Github
+        <Button asChild variant="secondary">
+          <a target="_blank" href="https://github.com/lukeskw/">
+            <Github className="w-4 h-4 mr-2"/>
+            Github
+
+          </a>
         </Button>
       </div>
     </div>

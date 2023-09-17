@@ -106,12 +106,12 @@ export function VideoForm(props: VideoFormProps){
     setStatus('generating')
 
     await api.post(`/videos/${videoId}/transcription`, {
-      prompt
-    })
+        prompt
+      })
 
-    setStatus('success')
+      setStatus('success')
 
-    props.onVideoUploaded(videoId)
+      props.onVideoUploaded(videoId)
 
   } catch(e){
     setStatus('error')
