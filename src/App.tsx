@@ -1,5 +1,13 @@
+import { Header } from "./components/Header";
+import { Main } from "./components/Main";
+import { MainWrapper } from "./components/MainWrapper";
+
 export function App() {
   return (
-   <h1>hello dev</h1>
+      <MainWrapper>
+        <Header />
+        <Main />
+
+      </MainWrapper>
   )
 }
