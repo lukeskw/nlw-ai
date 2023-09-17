@@ -7,7 +7,6 @@ export function App() {
       <MainWrapper>
         <Header />
         <Main />
-
       </MainWrapper>
   )
 }
