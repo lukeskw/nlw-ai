@@ -2,23 +2,24 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { Slider } from "@radix-ui/react-slider";
 import { Wand2 } from "lucide-react";
+import { PromptSelect } from "./prompt-select";
+import { useState } from "react";
+import { Slider } from "@/components/ui/slider";
 
 export function PromptForm(){
+
+  const [temperature, setTemperature] = useState(0.5)
+
+  function handlePromptSelected (template:string) {
+    console.log(template)
+  }
+
   return (
     <form className="space-y-6">
     <div className="space-y-2">
       <Label>Prompt</Label>
-      <Select>
-        <SelectTrigger>
-          <SelectValue placeholder="Selecione um prompt..." />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="titulo-youtube">Título do Youtube</SelectItem>
-          <SelectItem value="descricao-youtube">Descrição do Youtube</SelectItem>
-        </SelectContent>
-      </Select>
+      <PromptSelect onPromptSelected={handlePromptSelected} />
 
     </div>
 
@@ -40,12 +41,17 @@ export function PromptForm(){
     <Separator />
 
     <div className="space-y-4">
+      <div className="flex items-center justify-between">
       <Label>Temperatura</Label>
+      <Label>{temperature}</Label>
+
+      </div>
       <Slider
         min={0}
         max={1}
         step={0.1}
-        defaultValue={[0.5]}
+        value={[temperature]}
+        onValueChange={value=> setTemperature(value[0])}
       />
       <span className="block text-xs text-muted-foreground italic leading-relaxed">Valores mais altos tendem a deixar o resultado mais criativo, porém possivelmente com mais erros.</span>
     </div>

@@ -5,11 +5,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/axios";
 import { getFFmpeg } from "@/lib/ffmpeg";
 import { fetchFile } from "@ffmpeg/util";
-import { stat } from "fs";
 import { FileVideo, Loader2, RotateCcw, Upload, X } from "lucide-react";
 import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
 
 type Status = 'waiting' | 'converting' | 'uploading' | 'generating' | 'success' | 'error'
+
+interface VideoFormProps {
+  onVideoUploaded: (id: string) => void
+}
 
 const statusMessages = {
   converting: 'Convertendo...',
@@ -20,7 +23,7 @@ const statusMessages = {
 
 }
 
-export function VideoForm(){
+export function VideoForm(props: VideoFormProps){
   const [ videoFile, setVideoFile ] = useState<File | null>(null)
   const [ status, setStatus ] = useState<Status>('waiting')
   const promptInputRef = useRef<HTMLTextAreaElement | null>(null)
@@ -105,6 +108,10 @@ export function VideoForm(){
     await api.post(`/videos/${videoId}/transcription`, {
       prompt
     })
+
+    setStatus('success')
+
+    props.onVideoUploaded(videoId)
 
   } catch(e){
     setStatus('error')
