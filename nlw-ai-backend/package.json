@@ -1,0 +1,17 @@
+{
+  "name": "nlw-ai-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.6.2",
+    "tsx": "^3.12.10",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "fastify": "^4.23.2"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts"
+  }
+}
